@@ -10,4 +10,9 @@ export const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full',
   },
+  {
+    path: 'multiplos',
+    loadComponent: () =>
+      import('./multiplos/multiplos.page').then((m) => m.MultiplosPage),
+  },
 ];

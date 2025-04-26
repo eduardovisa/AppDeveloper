@@ -1,0 +1,9 @@
+<ion-grid>
+  <ion-row>
+    @for (elemento of multiplosGenerados; track elemento) {
+    <ion-col [style.background-color]="elemento.color">{{
+      elemento.numero
+    }}</ion-col>
+    }
+  </ion-row>
+</ion-grid>

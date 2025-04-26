@@ -1,0 +1,53 @@
+<!-- Página principal del módulo de los multiplos (Aquí estarán renderizados los subcomponentes) -->
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Múltiplos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Múltiplos</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div class="content-container">
+    <app-input-numero (onSubmitNumero)="generarNumeros($event)">
+    </app-input-numero>
+    <ion-grid>
+      <p style="font-size: 20px">Identificación de múltiplos por color:</p>
+      <ion-row>
+        @for (elemento of multiplosLista; track elemento) {
+        <ion-col
+          style="display: flex; align-items: center; justify-content: center"
+        >
+          <span
+            [style.backgroundColor]="elemento.color"
+            style="
+              display: inline-block;
+              width: 2em;
+              height: 2em;
+              margin-right: 0.5em;
+              border-radius: 50%;
+            "
+          >
+          </span>
+          {{ elemento.multiplo }}
+        </ion-col>
+        }
+      </ion-row>
+    </ion-grid>
+    <br />
+    <ion-label
+      *ngIf="numeroDeResultados$ | async as numero"
+      style="font-size: 20px"
+    >
+      Número total de resultados guardados: {{ numero }}
+    </ion-label>
+    <p style="font-size: 20px">Múltiplos encontrados:</p>
+    <app-list-numero
+      [multiplosGenerados]="multiplosGenerados"
+    ></app-list-numero>
+  </div>
+</ion-content>

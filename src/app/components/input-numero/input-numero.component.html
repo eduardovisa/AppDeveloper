@@ -1,0 +1,19 @@
+<!-- Componente que renderiza un input de tipo númerico -->
+<ion-item>
+  <ion-input
+    inputmode="numeric"
+    type="number"
+    pattern="[0-9]*"
+    [(ngModel)]="numero"
+    placeholder="Solo números enteros"
+  ></ion-input>
+</ion-item>
+
+<ion-button
+  expand="block"
+  (click)="submitNumero()"
+  [disabled]="validarNumero(numero)"
+  color="dark"
+>
+  Obtener múltiplos
+</ion-button>

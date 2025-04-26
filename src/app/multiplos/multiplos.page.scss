@@ -1,0 +1,22 @@
+/* Centrado vertical y horizontal */
+:host {
+  display: block;
+  height: 100%;
+  background-color: #50889f;
+}
+
+ion-content {
+  --ion-background-color: transparent;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.content-container {
+  width: 90%;
+  max-width: 600px;
+  margin: auto;
+  text-align: center;
+}
