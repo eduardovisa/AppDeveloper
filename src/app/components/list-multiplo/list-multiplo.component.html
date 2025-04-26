@@ -13,17 +13,17 @@
       [style.backgroundColor]="elemento.color"
       >{{ elemento.multiplo }}</ion-label
     >
-    @for (numero of this.nuevosMultiplos[elemento.multiplo]; track numero; let i
-    = $index) {
-    <ion-item [style.backgroundColor]="elemento.color">
-      <ion-label
-        :key="i"
-        style="color: white; padding: 10px"
-        [style.backgroundColor]="elemento.color"
-        >{{ numero }}</ion-label
-      >
-    </ion-item>
-    }
+    <ion-grid>
+      <ion-row>
+        @for (numero of this.nuevosMultiplos[elemento.multiplo]; track numero;
+        let i = $index) {
+        <ion-col [style.background-color]="elemento.color">{{
+          numero
+        }}</ion-col>
+
+        }
+      </ion-row>
+    </ion-grid>
   </div>
   }
 </ion-list>

@@ -1,11 +1,18 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { IonList, IonItem, IonLabel } from '@ionic/angular/standalone';
+import {
+  IonList,
+  IonItem,
+  IonLabel,
+  IonGrid,
+  IonRow,
+  IonCol,
+} from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-list-multiplo',
   templateUrl: './list-multiplo.component.html',
   styleUrls: ['./list-multiplo.component.scss'],
-  imports: [IonList, IonItem, IonLabel],
+  imports: [IonList, IonGrid, IonRow, IonCol, IonLabel],
 })
 export class ListMultiploComponent implements OnInit {
   // Data que recibe del padre
