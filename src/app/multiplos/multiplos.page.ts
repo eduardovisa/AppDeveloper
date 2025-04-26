@@ -13,9 +13,11 @@ import {
   IonGrid,
   IonRow,
   IonLabel,
+  IonButton,
 } from '@ionic/angular/standalone';
 import { InputNumeroComponent } from '../components/input-numero/input-numero.component';
 import { ListNumeroComponent } from '../components/list-numero/list-numero.component';
+import { ListHistorialComponent } from '../components/list-historial/list-historial.component';
 
 @Component({
   selector: 'app-multiplos',
@@ -31,14 +33,19 @@ import { ListNumeroComponent } from '../components/list-numero/list-numero.compo
     FormsModule,
     InputNumeroComponent,
     ListNumeroComponent,
+    ListHistorialComponent,
     IonCol,
     IonGrid,
     IonRow,
     IonLabel,
+    IonButton,
   ],
 })
 export class MultiplosPage implements OnInit {
   numeroDeResultados$: Observable<number> = EMPTY;
+  resultadosHistorial$: Observable<number[]> = EMPTY;
+
+  mostrarHistorial: boolean = false;
 
   // Lista general de multiplos a validar
   multiplosLista: { multiplo: number; color: string }[] = [
@@ -58,7 +65,7 @@ export class MultiplosPage implements OnInit {
   constructor(private dbService: DatabaseService) {}
 
   // Generar la lista completa del 0 al número que ingresó el usuario
-  generarNumeros(numero: number) {
+  generarNumeros(numero: number, isHistorial: boolean) {
     // Validación del lo que se recibe
     if (numero === null || isNaN(numero)) {
       this.numerosGenerados = [];
@@ -68,11 +75,11 @@ export class MultiplosPage implements OnInit {
     // LLamada a función para llenado de lista
     this.numerosGenerados = llenarLista(0, numero, 1);
     // Generación del arreglo de objetos encontrando los múltiplos de cada número del arreglo numerosGenerados
-    this.obtenerMultiplos(this.numerosGenerados);
+    this.obtenerMultiplos(this.numerosGenerados, isHistorial);
   }
 
-  //
-  obtenerMultiplos(listaNumeros: number[]) {
+  // Revisión de los números en la lista para verificar cuál es múltiplo de cúal
+  obtenerMultiplos(listaNumeros: number[], isHistorial: boolean) {
     this.multiplosGenerados = []; // Resetear
 
     for (const num of listaNumeros) {
@@ -83,10 +90,12 @@ export class MultiplosPage implements OnInit {
         else this.agregarMultiplo(num, 0.1);
       }
     }
-    this.guardarMiData();
+    if (!isHistorial) {
+      this.guardarMiData();
+    }
   }
 
-  // En tu componente
+  // Creación o llenaro de nuevos valores en el arreglo de objetos
   agregarMultiplo(numero: number, multiplo: number) {
     // Buscar si el número ya existe
     const existeNumero = this.multiplosGenerados.find(
@@ -113,12 +122,24 @@ export class MultiplosPage implements OnInit {
     }
   }
 
+  setNuevoHistorial(numero: any) {
+    this.generarNumeros(numero, true);
+    this.mostrarHistorial = !this.mostrarHistorial;
+  }
+
+  // Mostrar/ocultar lista de historial
+  fncMostrarHistorial() {
+    this.mostrarHistorial = !this.mostrarHistorial;
+  }
+
+  // Manda a llamar la función para enviar a FireBase
   guardarMiData() {
     this.dbService.guardarResultados(this.multiplosGenerados);
   }
 
   ngOnInit() {
     this.numeroDeResultados$ = this.dbService.obtenerNumeroDeResultados();
+    this.resultadosHistorial$ = this.dbService.obtenerHistorial();
   }
 }
 

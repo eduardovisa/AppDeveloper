@@ -1,0 +1,14 @@
+<ion-list [inset]="true">
+  @for (elemento of resultados; track elemento; let i = $index) {
+  <ion-item>
+    <ion-button
+      :key="i"
+      style="width: 100%"
+      fill="clear"
+      (click)="submitNumeroHistorial(elemento)"
+    >
+      <ion-label style="color: white">{{ elemento }}</ion-label>
+    </ion-button>
+  </ion-item>
+  }
+</ion-list>

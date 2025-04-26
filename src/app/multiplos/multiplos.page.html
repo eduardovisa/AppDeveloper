@@ -13,8 +13,11 @@
   </ion-header>
 
   <div class="content-container">
-    <app-input-numero (onSubmitNumero)="generarNumeros($event)">
+    <!-- INPUT DONDE REGISTRA EL USUARIO EL NÚMERO -->
+    <app-input-numero (onSubmitNumero)="generarNumeros($event, false)">
     </app-input-numero>
+
+    <!-- LISTA DE LOS MÚLTIPLOS PRINCIPALES CON SU IDENTIFICADOR A COLOR -->
     <ion-grid>
       <p style="font-size: 20px">Identificación de múltiplos por color:</p>
       <ion-row>
@@ -39,15 +42,41 @@
       </ion-row>
     </ion-grid>
     <br />
+
+    <!-- CANTIDAD TOTAS DE REGISTROS GUARDADOS EN LA BASE DE DATOS -->
     <ion-label
       *ngIf="numeroDeResultados$ | async as numero"
       style="font-size: 20px"
     >
       Número total de resultados guardados: {{ numero }}
     </ion-label>
-    <p style="font-size: 20px">Múltiplos encontrados:</p>
-    <app-list-numero
-      [multiplosGenerados]="multiplosGenerados"
-    ></app-list-numero>
+
+    <ion-button
+      shape="round"
+      expand="block"
+      (click)="fncMostrarHistorial()"
+      color="dark"
+    >
+      HISTORIAL
+    </ion-button>
+
+    <!-- LISTA GENERADA DE LOS NÚMEROS CON SUS COLORES IDENTIFICADORES POR MÚLTIPLO -->
+    @if (!this.mostrarHistorial) { @if (this.multiplosGenerados.length > 0) {
+    <div>
+      <p style="font-size: 20px">Múltiplos encontrados:</p>
+      <app-list-numero
+        [multiplosGenerados]="multiplosGenerados"
+      ></app-list-numero>
+    </div>
+    } @else {
+    <div></div>
+    } } @else {
+    <div>
+      <app-list-historial
+        (onSubmitNumeroHistorial)="setNuevoHistorial($event)"
+        [numerosBuscados]="resultadosHistorial$"
+      ></app-list-historial>
+    </div>
+    }
   </div>
 </ion-content>
