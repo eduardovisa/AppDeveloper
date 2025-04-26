@@ -1,0 +1,29 @@
+<ion-list [inset]="true" style="background-color: transparent">
+  @for (elemento of multiplosLista; track elemento; let i = $index) {
+  <div style="display: flex">
+    <ion-label
+      :key="i"
+      style="
+        color: rgb(255, 255, 255);
+        display: flex;
+        justify-self: center;
+        align-items: center;
+        padding: 10px;
+      "
+      [style.backgroundColor]="elemento.color"
+      >{{ elemento.multiplo }}</ion-label
+    >
+    @for (numero of this.nuevosMultiplos[elemento.multiplo]; track numero; let i
+    = $index) {
+    <ion-item [style.backgroundColor]="elemento.color">
+      <ion-label
+        :key="i"
+        style="color: white; padding: 10px"
+        [style.backgroundColor]="elemento.color"
+        >{{ numero }}</ion-label
+      >
+    </ion-item>
+    }
+  </div>
+  }
+</ion-list>
