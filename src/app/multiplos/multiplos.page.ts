@@ -18,6 +18,7 @@ import {
 import { InputNumeroComponent } from '../components/input-numero/input-numero.component';
 import { ListNumeroComponent } from '../components/list-numero/list-numero.component';
 import { ListHistorialComponent } from '../components/list-historial/list-historial.component';
+import { ListMultiploComponent } from '../components/list-multiplo/list-multiplo.component';
 
 @Component({
   selector: 'app-multiplos',
@@ -34,6 +35,7 @@ import { ListHistorialComponent } from '../components/list-historial/list-histor
     InputNumeroComponent,
     ListNumeroComponent,
     ListHistorialComponent,
+    ListMultiploComponent,
     IonCol,
     IonGrid,
     IonRow,
@@ -46,6 +48,7 @@ export class MultiplosPage implements OnInit {
   resultadosHistorial$: Observable<number[]> = EMPTY;
 
   mostrarHistorial: boolean = false;
+  mostrarAgrupado: boolean = false;
 
   // Lista general de multiplos a validar
   multiplosLista: { multiplo: number; color: string }[] = [
@@ -90,6 +93,7 @@ export class MultiplosPage implements OnInit {
         else this.agregarMultiplo(num, 0.1);
       }
     }
+
     if (!isHistorial) {
       this.guardarMiData();
     }
@@ -99,7 +103,7 @@ export class MultiplosPage implements OnInit {
   agregarMultiplo(numero: number, multiplo: number) {
     // Buscar si el número ya existe
     const existeNumero = this.multiplosGenerados.find(
-      (item) => item.numero === numero
+      (item: { numero: any }) => item.numero === numero
     );
 
     if (existeNumero) {
@@ -124,12 +128,17 @@ export class MultiplosPage implements OnInit {
 
   setNuevoHistorial(numero: any) {
     this.generarNumeros(numero, true);
-    this.mostrarHistorial = !this.mostrarHistorial;
+    this.fncMostrarHistorial();
   }
 
   // Mostrar/ocultar lista de historial
   fncMostrarHistorial() {
     this.mostrarHistorial = !this.mostrarHistorial;
+  }
+
+  // Mostrar/ocultar lista agrupada por múltiplos
+  fncMostrarListaAgrupada() {
+    this.mostrarAgrupado = !this.mostrarAgrupado;
   }
 
   // Manda a llamar la función para enviar a FireBase
@@ -138,6 +147,9 @@ export class MultiplosPage implements OnInit {
   }
 
   ngOnInit() {
+    if (this.multiplosGenerados.length > 0) {
+      this.multiplosGenerados = [];
+    }
     this.numeroDeResultados$ = this.dbService.obtenerNumeroDeResultados();
     this.resultadosHistorial$ = this.dbService.obtenerHistorial();
   }

@@ -60,16 +60,35 @@
       HISTORIAL
     </ion-button>
 
-    <!-- LISTA GENERADA DE LOS NÚMEROS CON SUS COLORES IDENTIFICADORES POR MÚLTIPLO -->
-    @if (!this.mostrarHistorial) { @if (this.multiplosGenerados.length > 0) {
+    @if (this.multiplosGenerados.length > 0) {
     <div>
       <p style="font-size: 20px">Múltiplos encontrados:</p>
+      <ion-button
+        shape="round"
+        expand="block"
+        (click)="fncMostrarListaAgrupada()"
+        color="dark"
+      >
+        LISTA AGRUPADA
+      </ion-button>
+    </div>
+    }
+
+    <!-- LISTA GENERADA DE LOS NÚMEROS CON SUS COLORES IDENTIFICADORES POR MÚLTIPLO -->
+    @if (!this.mostrarHistorial) { @if (this.multiplosGenerados.length > 0 &&
+    !this.mostrarAgrupado) {
+    <div>
       <app-list-numero
         [multiplosGenerados]="multiplosGenerados"
       ></app-list-numero>
     </div>
     } @else {
-    <div></div>
+    <div>
+      <app-list-multiplo
+        [multiplosGenerados]="this.multiplosGenerados"
+        [multiplosLista]="this.multiplosLista"
+      ></app-list-multiplo>
+    </div>
     } } @else {
     <div>
       <app-list-historial

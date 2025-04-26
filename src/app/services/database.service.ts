@@ -31,7 +31,7 @@ export class DatabaseService {
     return this.resultadosRef.snapshotChanges().pipe(
       map((changes) =>
         changes.map((c) => {
-          // Asumiendo que cada elemento es un array
+          // Asumir que cada elemento es un array de objetos [{}, {}, {}]
           const data = c.payload.val();
           return Array.isArray(data) ? data.length - 1 : 0;
         })
