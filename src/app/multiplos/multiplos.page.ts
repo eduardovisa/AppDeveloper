@@ -92,6 +92,13 @@ export class MultiplosPage implements OnInit {
 
     if (!isHistorial) {
       this.guardarMiData();
+      if (this.mostrarHistorial) {
+        this.fncMostrarHistorial();
+      }
+    }
+
+    if (this.mostrarAgrupado) {
+      this.fncMostrarListaAgrupada();
     }
   }
 

@@ -73,7 +73,7 @@
         [multiplosGenerados]="multiplosGenerados"
       ></app-list-numero>
     </div>
-    } @else {
+    } @else if (this.multiplosGenerados.length > 0 && this.mostrarAgrupado) {
     <div>
       <app-list-multiplo
         [multiplosGenerados]="this.multiplosGenerados"
