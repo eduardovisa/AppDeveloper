@@ -6,9 +6,7 @@ import { DatabaseService } from '../services/database.service';
 import { Observable, EMPTY } from 'rxjs';
 import {
   IonContent,
-  IonHeader,
   IonTitle,
-  IonToolbar,
   IonCol,
   IonGrid,
   IonRow,
@@ -27,9 +25,7 @@ import { ListMultiploComponent } from '../components/list-multiplo/list-multiplo
   standalone: true,
   imports: [
     IonContent,
-    IonHeader,
     IonTitle,
-    IonToolbar,
     CommonModule,
     FormsModule,
     InputNumeroComponent,
